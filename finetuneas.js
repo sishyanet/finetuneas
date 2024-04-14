@@ -95,6 +95,49 @@ function bindEssentialListeners() {
     } catch(e) {
       //pass
     }
+    try {
+        document.addEventListener("keydown", function(event) {
+            if(!event.ctrlKey) {
+            switch(event.key) {
+                case "ArrowUp":
+                    // go to previous
+                    fragmentClick({'target': {'id': (currentIndex-1).toString()}});
+                    window.getSelection().removeAllRanges();
+                    break;
+                case "ArrowDown":
+                    // go to next
+                    fragmentClick({'target': {'id': (currentIndex+1).toString()}});
+                    window.getSelection().removeAllRanges();
+                    break;
+                case "ArrowLeft":
+                    // decrement end
+                    decreaseClick({'target': {'id': 't'+currentIndex.toString()+'decend'}});
+                    break;
+                case "ArrowRight":
+                    // increment end
+                    increaseClick({'target': {'id': 't'+currentIndex.toString()+'incend'}});
+                    break;
+                default:
+                    // Handle other key events
+                    break;
+            }
+        } else {
+            // ctrl pressed
+            switch(event.key) {
+                case "ArrowLeft":
+                    // decrement beginning
+                    decreaseClick({'target': {'id': 't'+currentIndex.toString()+'decbegin'}});
+                    break;
+                case "ArrowRight":
+                    // increment beginning
+                    increaseClick({'target': {'id': 't'+currentIndex.toString()+'incbegin'}});
+                    break;
+            }
+        }
+        });                
+    } catch(e) {
+        //pass
+    }
 }
 
 function applyDefaults() {
